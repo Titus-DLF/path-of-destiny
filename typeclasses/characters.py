@@ -53,40 +53,20 @@ class Character(Object, DefaultCharacter):
             )
         setattr(self, attribute_name, race)
 
-    equipment_slots = [
-        "light",
-        "Ring",
-        "Ring",
-        "Wrist",
-        "Wrist",
-        "Helm",
-        "Neck",
-        "Shoulders",
-        "Body Armor",
-        "Arms",
-        "Waist",
-        "Scroll",
-        "Cloak",
-        "Hands",
-        "Legs",
-        "Boots",
-        "Main Wield",
-        "Dual Wield",
-        "Shield",
-        "Aura",
-
-    ]
-
-    player_equipment = {
-        "equipment slot": "value from the object's short description"
-    }
-
     def at_object_creation(self):
-        #  Define base attributes as class variables.
 
         super().at_object_creation()
 
-        # Sets the base values for the character object
+        self.init_char_stats()
+        self.update_stat_sheet()
+        self.init_player_eq_slots()
+        self.save()  # Saves the character objects persistent data to the database.
+
+    def init_char_stats(self):
+        """
+        Sets the base attributes and values and adds them to the character object.
+        """
+
         base_mod = 0
         base_resource_value = 100
         base_stat_attributes = 10
@@ -116,7 +96,8 @@ class Character(Object, DefaultCharacter):
         self.integer_attributes = {
             "player_level": 1,
         }
-        # Initializing character variables and their values using the corresponding dictionary.
+        # Initializing character variables and their values for each category of attributes.
+        # Adds the attributes and base values to the character object.
         for attr, value in self.resource_attributes.items():
             self.attributes.add(attr, value[0])
 
@@ -129,10 +110,8 @@ class Character(Object, DefaultCharacter):
         for attr, value in self.integer_attributes.items():
             self.attributes.add(attr, value)
 
-        self.save()  # Stores the character attributes in the database.
+        self.save()  # Saves the character objects persistent data to the database.
         self.update_stat_sheet()  # Stores the updated score-sheet in the database.
-
-    # Updates and displays player attributes and stats.
 
     def update_stat_sheet(self):
         try:
@@ -141,7 +120,7 @@ class Character(Object, DefaultCharacter):
             attributes_list = []
             stat_sheet_dict = {}
 
-            # Collect all attribute keys in attributes_list
+            # Populates the attributes_list with the keys from the attribute dictionaries.
             for key in self.resource_attributes.keys():  # hp, mana, stamina, etc
                 attributes_list.append(key)
 
@@ -186,3 +165,51 @@ class Character(Object, DefaultCharacter):
             self.db.stat_sheet = stat_sheet
         except (KeyError, AttributeError) as e:
             print(f"Error updating the score-sheet: {e}")
+
+    def init_player_eq_slots(self):
+        """
+        Initializes the player default equipment slots and default values.
+
+        """
+        default_item_desc = "Nothing equipped"
+
+        try:
+            player_equipment = {
+                # A dictionary containing the equipment slots and descriptions of the items equipped to the player.
+
+                "light": "",
+                "Ring-Left": "",
+                "Ring-Right": "",
+                "Wrist-Left": "",
+                "Wrist-Right": "",
+                "Helm": "",
+                "Neck-1": "",
+                "Neck-2": "",
+                "Shoulders": "",
+                "Body Armor": "",
+                "Arms": "",
+                "Waist": "",
+                "Scroll": "",
+                "Cloak": "",
+                "Hands": "",
+                "Legs": "",
+                "Boots": "",
+                "Primary": "",
+                "Off-Hand": "",
+                "Shield": "",
+                "Aura": "",
+            }
+
+
+        except(KeyError, AttributeError):
+            print("Unable to initialize equipment slots.")
+
+    def update_player_equipment(self):
+        """
+        Initializes the player default equipment slots and values.
+        Updates the player's equipment by saving any changes to the database.
+
+        Usage:
+        Call this function to set up or update the player's equipment.
+
+        """

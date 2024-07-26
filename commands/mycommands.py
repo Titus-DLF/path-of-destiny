@@ -47,7 +47,6 @@ class CustomBaseCmd(Command):
 ##############################################
 
 class CmdLook(general.CmdLook, CustomBaseCmd):
-
     aliases = ["l", "loo", "lo"]
 
     def at_post_cmd(self):
@@ -56,7 +55,6 @@ class CmdLook(general.CmdLook, CustomBaseCmd):
 
 
 class CmdHome(general.CmdHome, CustomBaseCmd):
-
     key = "recall"
     aliases = ["home", "rec"]
 
@@ -149,7 +147,7 @@ class StatSheet(CustomBaseCmd):
     Shows player attributes by displaying the stat-sheet.
 
     Usage:
-    score or sc
+    stats or ss
     """
     key = "stat"
     aliases = ["stats", "ss"]
@@ -173,6 +171,17 @@ class StatSheet(CustomBaseCmd):
             # if the stat_sheet is empty or None, send an error message to the player
             self.caller.msg("The stat sheet is not available.")
 
+
+class Equipment(Command):
+    """
+    Will display a list of the player's equipment slots and any items being used in those slots in addition to
+    any empty slots.
+
+    Usage:
+    equipment or eq
+    """
+    key = "equipment"
+    aliases = ["eq"]
 
 ##############################################
 # My custom command sets

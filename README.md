@@ -1,1 +1,1 @@
-Path of Destiny is a text-based online game.
+Path of Destiny is a text-based online game. It is currently in the development stage.
