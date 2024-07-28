@@ -1,1 +1,1 @@
-Path of Destiny is a text-based online game. It is currently in the development stage.
+Path of Destiny is a text-based online game built using the <a href="https://www.evennia.com">Evennia Framework</a>. It is currently in the development stage.

@@ -168,7 +168,7 @@ class Character(Object, DefaultCharacter):
 
     def init_player_eq_slots(self):
         """
-        Initializes the player default equipment slots and default values.
+        Loads the player default equipment slots and default values.
 
         """
         default_item_desc = "Nothing equipped"
@@ -206,8 +206,7 @@ class Character(Object, DefaultCharacter):
 
     def update_player_equipment(self):
         """
-        Initializes the player default equipment slots and values.
-        Updates the player's equipment by saving any changes to the database.
+        Updates the player's equipment slots by saving changes to the database.
 
         Usage:
         Call this function to set up or update the player's equipment.

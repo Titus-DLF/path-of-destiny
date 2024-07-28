@@ -174,14 +174,15 @@ class StatSheet(CustomBaseCmd):
 
 class Equipment(Command):
     """
-    Will display a list of the player's equipment slots and any items being used in those slots in addition to
+    Displays a list of the player's equipment slots and any items being used in those slots in addition to
     any empty slots.
 
     Usage:
-    equipment or eq
+    eq or equipment
     """
-    key = "equipment"
-    aliases = ["eq"]
+    key = "eq"
+    aliases = ["equipment"]
+
 
 ##############################################
 # My custom command sets
